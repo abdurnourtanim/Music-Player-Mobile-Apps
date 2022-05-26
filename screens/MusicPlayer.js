@@ -2,6 +2,7 @@ import Slider from "@react-native-community/slider";
 import React from "react";
 import {
   Dimensions,
+  FlatList,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -10,20 +11,35 @@ import {
   View,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import songs from "../model/Data";
 
 const { width, height } = Dimensions.get("window");
 
 const MusicPlayer = () => {
+  const renderSongs = ({ item, index }) => {
+    return (
+      <View style={style.mainImageWrapper}>
+        <View style={[style.imageWrapper, style.elevation]}>
+          <Image source={item.artwork} style={style.musicImage} />
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={style.container}>
       <View style={style.mainContainer}>
         {/* Image  */}
-        <View style={[style.imageWrapper, style.elevation]}>
-          <Image
-            source={require("../assets/img/img2.jpg")}
-            style={style.musicImage}
-          />
-        </View>
+        <FlatList
+          renderItem={renderSongs}
+          data={songs}
+          keyExtractor={(item) => item.id}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+          onScroll={() => {}}
+        />
 
         {/* Song content */}
         <View>
@@ -105,7 +121,7 @@ const style = StyleSheet.create({
   bottomSection: {
     borderTopColor: "#393E46",
     borderWidth: 1,
-    width: width,
+    width,
     alignItems: "center",
     paddingVertical: 15,
   },
@@ -113,6 +129,11 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "80%",
+  },
+  mainImageWrapper: {
+    width,
+    justifyContent: "center",
+    alignItems: "center",
   },
   imageWrapper: {
     width: 300,
