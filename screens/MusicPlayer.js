@@ -1,8 +1,11 @@
+import Slider from "@react-native-community/slider";
 import React from "react";
 import {
   Dimensions,
+  Image,
   SafeAreaView,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,10 +18,56 @@ const MusicPlayer = () => {
     <SafeAreaView style={style.container}>
       <View style={style.mainContainer}>
         {/* Image  */}
+        <View style={[style.imageWrapper, style.elevation]}>
+          <Image
+            source={require("../assets/img/img2.jpg")}
+            style={style.musicImage}
+          />
+        </View>
+
+        {/* Song content */}
+        <View>
+          <Text style={[style.songContent, style.songTitle]}>Song Name</Text>
+          <Text style={[style.songContent, style.songArtist]}>
+            Song artist name
+          </Text>
+        </View>
 
         {/* Slider */}
+        <View>
+          <Slider
+            style={style.progressBar}
+            value={10}
+            minimumValue={0}
+            maximumValue={100}
+            minimumTrackTintColor="#FFD369"
+            maximumTrackTintColor="#fff"
+            thumbTintColor="#FFD369"
+            onSlidingComplete={() => {}}
+          />
+          {/* Music progress durations */}
+          <View style={style.progressLevelDuration}>
+            <Text style={style.progressLabelText}>00:00</Text>
+            <Text style={style.progressLabelText}>00:00</Text>
+          </View>
+        </View>
 
         {/* Music controls */}
+        <View style={style.musicControlsContainer}>
+          <TouchableOpacity onPress={() => {}}>
+            <Ionicons name="play-skip-back-outline" size={35} color="#FFD369" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {}}>
+            <Ionicons name="ios-pause-circle" size={75} color="#FFD369" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {}}>
+            <Ionicons
+              name="play-skip-forward-outline"
+              size={35}
+              color="#FFD369"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={style.bottomSection}>
@@ -45,6 +94,7 @@ export default MusicPlayer;
 
 const style = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "#222831",
   },
   mainContainer: {
@@ -63,5 +113,62 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "80%",
+  },
+  imageWrapper: {
+    width: 300,
+    height: 340,
+    marginBottom: 15,
+    marginTop: 20,
+  },
+  musicImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 15,
+  },
+  elevation: {
+    elevation: 5,
+
+    shadowColor: "#ccc",
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+  },
+  songContent: {
+    color: "#EEEEEE",
+    textAlign: "center",
+  },
+  songTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  songArtist: {
+    fontSize: 16,
+    fontWeight: "300",
+  },
+  progressBar: {
+    width: 350,
+    height: 40,
+    marginTop: 0,
+    flexDirection: "row",
+  },
+  progressLevelDuration: {
+    width: 340,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  progressLabelText: {
+    color: "#fff",
+    fontWeight: "500",
+  },
+  musicControlsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "60%",
+    marginTop: 0,
+    marginBottom: 20,
   },
 });
